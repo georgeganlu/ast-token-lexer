@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 60px;
+            border: 1px solid #000;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        window.onload = function () {
+            // for (var i = 0; i < 20; i++) {
+            //     var div = document.createElement("div");
+            //     div.onclick = function () {
+            //         console.log(i);
+            //     }
+            //     document.body.appendChild(div);
+            // }
+            for (var i = 0; i < 20; i++) {
+                void function (i) {
+                    var div = document.createElement("div");
+                    div.onclick = function () {    // 绑定事件也是当前自然书写的词法作用域中去了。
+                        console.log(i);
+                    };
+                    document.body.appendChild(div);    // 始终记住形成的是一个域。 对var来说的话，至始至终能限制它的只有是脚本、模块、函数。
+                } (i)                 
+            }
+        }    
+    </script>
+</body>
+</html>
