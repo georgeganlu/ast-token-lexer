@@ -4,11 +4,12 @@ class Attribute { } // 属性标签
 class EndTagToken { } // 结束标签
 
 class HTMLlexicalParser {
-    constructor() {
+    constructor(syntaxer) {
         this.token = ''; // 形面的token的栈。
         this.attribute = null;
         this.state = this.data;
         this.characterReference = '';
+        this.syntaxer = syntaxer;
         this.characterReferenceInData = this.characterReferenceInData;
     }
 
@@ -185,11 +186,7 @@ class HTMLlexicalParser {
 
     /** 输出 */
     emitToken(token) {
-        if (typeof token === 'string') {
-            console.log(`String(${token.replace(/\n/, /\\n/).replace(/ /, '<whitespace>')})`);
-        } else {
-            console.log(token);
-        }
+        this.syntaxer.receiveInput(token);
     }
     error(c) {
         console.log(`Error(${c}) - 无法识别的字符`);
@@ -209,4 +206,8 @@ class HTMLlexicalParser {
     }
 }
 
-module.exports = HTMLlexicalParser;
+module.exports = {
+    HTMLlexicalParser,
+    StartTagToken,
+    EndTagToken
+}
