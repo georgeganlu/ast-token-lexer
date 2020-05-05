@@ -34,14 +34,14 @@ class HtmlLexerParser {
         if (c == '<') {
             return this.tagOpen;
         }
-        this.error(c);
+        this.emitToken(c);
         return this.data;
     }
 
     tagOpen(c) {
         if (/[a-zA-Z-]/.test(c)) {
             this.token = new StartTagName();
-            this.token.name = c;
+            this.token.name = c.toLowerCase();
             return this.tagName;
         } 
         if (c == '/') {
@@ -53,7 +53,7 @@ class HtmlLexerParser {
      
     tagName(c) {
         if (/[\t \f\n]/.test(c)) {
-            return  this.beforeAttribute;
+            return  this.beforeAttributeName;
         }
         if (c == "/") {
             return this.selfTagClosing;
@@ -69,25 +69,105 @@ class HtmlLexerParser {
         this.error(c);
     }
 
+    beforeAttributeName(c) {
+        // 属性开始
+        if (/[\t \f\n]/.test(c)) {
+            return this.beforeAttributeName;
+        } 
+        if (c == '/') {
+            return this.selfTagClosing;
+        }
+        if (c == '>') {
+            this.emitToken(this.token);
+            return this.data;
+        }
+       
+        this.attribute = new Attribute();
+        this.attribute.name = c.toLowerCase();
+        this.attribute.value = '';
+        return this.attributeName;
+        
+    }
+
+    attributeName(c) {
+        if (/[\t \f\n]/.test(c)) {
+            return this.beforeAttributeName;
+        } 
+        if (c == '=') {
+            return this.beforeAttributeValue;
+        }
+        if (c == "/") {
+            this.token[this.attribute.name] = this.attribute.value;
+            return this.selfTagClosing;
+        }
+        if (c == '>') {
+            this.token[this.attribute.name] = this.attribute.value;
+            this.emitToken(this.token);
+            return this.data;
+        }
+        this.attribute.name += c;
+        return this.attributeName
+    }
+
+    beforeAttributeValue(c) {
+        if (/[\t \f\n]/.test(c)) {
+            return this.beforeAttributeValue;
+        }
+        if (c == '"') {
+            return this.attributeDoubleQuoted;
+        }
+        if (c == "'") {
+            return this.attributeSingleQuoted
+        }
+        this.attribute.value += c.toLowerCase();
+
+        // 属性值的两种情况 单引号和双引号都考虑之后，还有一种属性值不带引号的。
+        return this.attributeUnquoted();
+    }
+
+    attributeUnquoted(c) {
+        if (/[\t \f\n]/.test(c)) {
+            this.token[this.attribute.name] = this.attribute.value;
+            return this.beforeAttributeName;
+        }
+        this.attribute.value += c.toLowerCase();
+        return this.attributeUnquoted;
+    }
+
+    attributeSingleQuoted(c) {
+        if (c == "'") {
+            this.token[this.attribute.name] = this.attribute.value;
+            return this.beforeAttributeName;
+        }
+        this.attribute.value += c.toLowerCase();
+        return this.attributeSingleQuoted;
+    }
+
+    attributeDoubleQuoted(c) {
+        if (c == '"') {
+            this.token[this.attribute.name] = this.attribute.value;
+            return this.beforeAttributeName;
+        }
+        this.attribute.value += c.toLowerCase();
+        return this.attributeDoubleQuoted;
+    }
+
     selfTagClosing(c) {
         if (c == '>') {
             this.emitToken(this.token);
             return this.data;
         }
     }
-
+    /** 正常的结尾的标签 */ 
     endTagOpen(c) {
         if (/[a-zA-Z-]/.test(c)) {
-            this.token.name += c;
+            this.token.name = c;
             return this.tagName;
         } 
         if (c == '>') {
             this.error(c);
         }
     }
-
-
-
 
     error(c) {
         console.error(`解析出错${c}`);
@@ -105,7 +185,7 @@ class HtmlLexerParser {
 
     // 输出。
     emitToken(token) {
-        this.handle.getOutPut(token);
+        this.handle.receiverInput(token);
     }
 
 }
@@ -113,5 +193,7 @@ class HtmlLexerParser {
 
 
 module.exports = {
-    HtmlLexerParser
+    HtmlLexerParser,
+    StartTagName,
+    EndTagOpen
 }
