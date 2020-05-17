@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div{
+            height: 500px;
+            overflow: auto;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+</head>
+<body>
+    <div id="div">
+        <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <hr>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div>
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    <div style="height: 600px;">
+        <div>测试1</div>
+        <div>测试2</div>
+        <div>测试3</div>
+    </div>
+    </div>
+    
+
+
+    <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+</body>
+</html>
+
+
+<script>
+
+    window.onload = function () {
+         
+        // class Wark {
+        //     constructor() {};
+        //     actions(el, fn) {
+        //         if (el && el.tagName) {
+        //             console.log(el.tagName);
+        //             this.actions(el.firstElementChild, this.actions);
+        //             this.actions(el.nextElementSibling, this.actions);
+        //         }
+        //     }
+        // }        
+        // let el = document.documentElement;
+        // let wark = new Wark();
+        // wark.actions(el);
+
+        // let url = "http://192.168.1.104:3000/test";
+        // axios({
+        //     url,
+        //     method: 'put',
+        //     data: {
+        //         msg: '你是用来测试的msg'
+        //     }
+        // }).then(res => {
+        //     console.log(res);
+        // })
+
+        let el = document.getElementById('div');
+        el.addEventListener('scroll', (event) => {
+            console.log(el.scrollTop);
+        });
+    };
+</script>
