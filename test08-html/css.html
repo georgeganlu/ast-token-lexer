@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div>5</div>
+    <div>4</div>
+    <div>3</div>
+    <div>2</div>
+    <div>1</div>
+
+    <span>254213135</span>
+
+
+    <script>
+        window.onload = function () {
+
+
+
+
+            function getElList() {
+                let drawList = [];
+                // 得到一个最外页面的size排位置。
+                let { x: htmlX, y: htmlY } = document.documentElement.getBoundingClientRect();
+                let elList = document.querySelectorAll('*');
+                console.log(elList, 'ellist');
+                elList.forEach(el => {
+                    // 这里是得到一个元素全部的盒子。
+                    let list = Array.from(el.getClientRects()).filter(item => {
+                        return item.width || item.height;  // 得到这个元素的所有的尺寸这后，还要判断这个元素是否存在width和height
+                    }).map(item => {
+                        // 画出这个盒子的基本大小 width height 和 x, y的位置。
+                        return {
+                            x: item.x - htmlX,
+                            y: item.y - htmlY,
+                            width: item.width,
+                            height: item.height
+                        }
+                    });
+                    drawList.push(...list);
+                })
+                console.log(drawList, 'draw ------- ')
+                return drawList;
+            }
+
+
+            function canvasFun() {
+                let canvas = document.createElement('canvas');
+                canvas.width = document.documentElement.offsetWidth;
+                canvas.height = document.documentElement.offsetHeight;
+
+                canvas.style.position = 'absolute';
+                canvas.style.top = 0;
+                canvas.style.right = 0;
+                canvas.style.bottom = 0;
+                canvas.style.left = 0;
+                canvas.style.zIndex = 20;
+
+                document.body.appendChild(canvas);
+                // 有了canvas 画布之后，还要生成笔， 用什么样的颜色的笔。
+                let context = canvas.getContext('2d');
+
+                draw(context, getElList());
+            }
+
+            function draw(ctx, rects) {
+                ctx.strokeStyle = 'red';
+                let rect = '';
+                while(rect = rects.shift()) {
+                    // window.requestAnimationFrame(realDraw);
+                    let { x, y, width, height } = rect;
+                    ctx.strokeRect(x, y, width, height);
+                }
+
+                function realDraw() {
+                    let { x, y, width, height } = rect;
+                    ctx.strokeRect(x, y, width, height);
+                }
+            }
+            canvasFun();
+        };    
+    </script>
+</body>
+
+</html>
