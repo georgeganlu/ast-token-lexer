@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div>
+        eeeeeeeeeeeeeeeeerrrrrrrrrrrrrrr
+        <div>
+            wwwwwwwwwww
+            <div>
+                qqqqqqqqqqqq
+                <div id="inner">asdfasdfasdf</div>
+            </div>
+        </div>
+        <div id="div">测试</div>
+        <p id="p">p测试</p>
+        <span id="span">asdfasdflkasldfkj</span>
+    </div>
+    
+
+
+
+
+
+    <script>
+        window.onload = function () {
+            void function () {
+                const canvas = document.createElement('canvas')
+
+                canvas.width = document.documentElement.offsetWidth     // 获取全局的
+                canvas.height = document.documentElement.offsetHeight
+
+                canvas.style.position = 'absolute'
+                canvas.style.left = '0'
+                canvas.style.right = '0'
+                canvas.style.top = '0'
+                canvas.style.bottom = '0'
+                canvas.style.zIndex = '99999'
+                document.body.appendChild(canvas)
+                const ctx = canvas.getContext('2d')
+                draw(ctx, getAllRects())
+
+                function draw(ctx, rects) {
+                    let i = 0
+                    ctx.strokeStyle = 'red'
+                    window.requestAnimationFrame(_draw)
+
+                    function _draw() {
+                        let { x, y, width, height } = rects[i++]
+                        ctx.strokeRect(x, y, width, height)
+                        if (i < rects.length) {
+                            window.requestAnimationFrame(_draw)
+                        } else {
+                            console.log('%cDONE', 'background-color: green; color: white; padding: 0.3em 0.5em;')
+                        }
+                    }
+                }
+
+                function getAllRects() {
+                    const allElements = document.querySelectorAll('*')
+
+                    console.log(allElements);
+
+                    const rects = []
+                    const { x: htmlX, y: htmlY } = document.documentElement.getBoundingClientRect()
+                    console.log(htmlX, htmlY);
+                    allElements.forEach(element => {
+                        const eachElRects = Array.from(element.getClientRects()).filter(rect => {
+                            return rect.width || rect.height
+                        }).map(rect => {
+                            return {
+                                x: rect.x - htmlX,
+                                y: rect.y - htmlY,
+                                width: rect.width,
+                                height: rect.height
+                            }
+                        })
+                        console.log(eachElRects);
+                        rects.push(...eachElRects)
+                    })
+                    return rects
+                }
+            }()
+        }
+    </script>
+</body>
+
+</html>
