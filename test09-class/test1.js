@@ -109,28 +109,33 @@
 // console.log(o + "");   // 正常是返回Object.prototype.toString()的结果。
 
 
-class Animal { 
-    constructor(name) {
-      this.name = name;
-    }
+// class Animal { 
+//     constructor(name) {
+//       this.name = name;
+//     }
     
-    speak() {
-      console.log(this.name + ' makes a noise.');
-    }
-  }
+//     speak() {
+//       console.log(this.name + ' makes a noise.');
+//     }
+//   }
   
-  class Dog extends Animal {
-    constructor(name) {
-      super(name); // call the super class constructor and pass in the name parameter
-    }
+//   class Dog extends Animal {
+//     constructor(name) {
+//       super(name); // call the super class constructor and pass in the name parameter
+//     }
   
-    speak() {
-      console.log(this.name + ' barks.');
-    }
-  }
+//     speak() {
+//       console.log(this.name + ' barks.');
+//     }
+//   }
   
-// 同时也展现了类的封装，继承，多态。
+// // 同时也展现了类的封装，继承，多态。
 
-  let d = new Dog('Mitzie');
-  d.speak(); // Mitzie barks.
+//   let d = new Dog('Mitzie');
+//   d.speak(); // Mitzie barks.
 
+
+
+class A1 extends Array {}
+
+console.log(A1.isArray([2, 4, 5, 6]));  // 直接让A1继承了很多原生属性，
