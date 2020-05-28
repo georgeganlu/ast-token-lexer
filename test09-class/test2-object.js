@@ -7,13 +7,13 @@
 /**  
  *   原生对象按类型来区分的话。
  *   基本数据类型       基础功能和数据结构        错误类型         二进制操作         带类型的数组    
- *   String            Promise
- *   Number            Array
- *   Boolean           RegExp
- *   Object            Date
- *   Symbol            Function
- *                     Map
- *                     weakMap
+ *   String            Promise                 Error
+ *   Number            Array                   EvalError
+ *   Boolean           RegExp                  RangeError 
+ *   Object            Date                    ReferenceError 
+ *   Symbol            Function                SyntaxError
+ *                     Map                     TypeError
+ *                     weakMap                 URIError 
  *                     Set
  *                     weakSet
  *                     Proxy 
