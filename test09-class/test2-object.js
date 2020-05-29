@@ -6,16 +6,16 @@
 // 对于对象来说可以是 函数对象和构造函数，在js中 原生对象是能通过构造器来创建新对象的。 内置对象承载的是函数类型的对象 eg: encodeURLComponent
 /**  
  *   原生对象按类型来区分的话。
- *   基本数据类型       基础功能和数据结构        错误类型         二进制操作         带类型的数组    
- *   String            Promise                 Error
- *   Number            Array                   EvalError
- *   Boolean           RegExp                  RangeError 
- *   Object            Date                    ReferenceError 
- *   Symbol            Function                SyntaxError
- *                     Map                     TypeError
- *                     weakMap                 URIError 
- *                     Set
- *                     weakSet
+ *   基本数据类型       基础功能和数据结构        错误类型               二进制操作                带类型的数组    
+ *   String            Promise                 Error                  ArrayBuffer              Float32Array
+ *   Number            Array                   EvalError              SharedArrayBuffer        Float64Array
+ *   Boolean           RegExp                  RangeError             DataView                 Int8Array
+ *   Object            Date                    ReferenceError                                  Int16Array
+ *   Symbol            Function                SyntaxError                                     Int32Array
+ *                     Map                     TypeError                                       UInt8Array
+ *                     weakMap                 URIError                                        UInt16Array 
+ *                     Set                                                                     UInt32Array            
+ *                     weakSet                                                                 UInt8ClampedArray              
  *                     Proxy 
  *                      
  * 
