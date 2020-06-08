@@ -21,4 +21,43 @@
 // let test == 'asdf'
 // console.log(test);
 
+// 5. URIError
+// console.log(decodeURIComponent('%'))
+
+
+//  6. RangeError.
+// 超出范围大小的错误。
+
+// function fun
+
+
+// const url = `htt://192.168.1.12:8000?${ encodeURI('name') }=${ encodeURI('陈') }`;
+// console.log(url);  // encodeURI 是js标准本身提供的对象。
+
+
+
+
+// console.log(new Date); // 1
+// console.log(Date())
+
+
+// 几种错误的类型。
+// let err1 = new Error('asdfasdf');   // 可以结合throw-error的方法来使用。
+// let err2 = Error('zxcvzcvz');
+// console.log(err1);   // error对象通过函数对象创建和构造器对象创建表现一致。
+// console.log(err2);
+
+
+// 2. Reference
+// console.log(a);
+
+
+// 3. TypeError
+// let a = 'asdf'
+// console.log(a.test());
+
+
+// 4. SyntaxError;
+function a = 'test';
+console.log(a);
 

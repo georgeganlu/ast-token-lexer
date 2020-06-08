@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="div">
+
+    </div>
+
+
+    <script>
+
+
+        const div = document.getElementById('div');
+        function actionx(color, duration) {
+            return new Promise((succ, fail) => {
+                div.style.backgroundColor = color;
+                setTimeout(() => {
+                    succ('测试color值');
+                }, duration)
+            })
+        }
+        async function foo() {
+            while (true) {
+                const r = await actionx('green', 3000)
+                await actionx('yellow', 2000)
+                await actionx('red', 1000)
+            }
+        }
+
+        // foo();
+
+        // async function foo2() {
+        //     await actionx('green', 3000)
+        //     await actionx('yellow', 2000)
+        //     await actionx('red', 1000)
+        //     return '';
+        // }
+
+        // let n = 100;
+        // while(n > 20) {     // 直接while调用的话，会出现爆栈的情况。
+        //     n--;
+        //     console.log(n);
+        //     await foo2();
+        // }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
